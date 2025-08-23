@@ -35,7 +35,7 @@ Sobrenome,Nome,Email,Nota,Status,Comentários
 Silva,João,joao@email.com,85,Entregue,
 
 ### 2. Personalizado (2 colunas)
-nome,nota
+nome;nota
 
 João Silva;8.5
 
