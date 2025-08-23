@@ -31,10 +31,12 @@ Desenvolvida por **Leonilso Fandres Wrublak** em **22/08/2025**, esta extensão 
 
 ### 1. Google Classroom (6 colunas)
 Sobrenome,Nome,Email,Nota,Status,Comentários
+
 Silva,João,joao@email.com,85,Entregue,
 
 ### 2. Personalizado (2 colunas)
 nome,nota
+
 João Silva;8.5
 
 
