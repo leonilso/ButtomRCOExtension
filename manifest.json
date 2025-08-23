@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Importador de Notas CSV",
+  "version": "1.0",
+  "description": "Adiciona botão para importar notas via CSV no RCO",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["https://rco.paas.pr.gov.br/avaliacao/"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Importar CSV"
+  }
+}
