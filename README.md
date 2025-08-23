@@ -21,7 +21,7 @@ Desenvolvida por **Leonilso Fandres Wrublak** em **22/08/2025**, esta extensão 
   - Google Chrome acesse chrome://extensions/
   - Microsoft Edge acesse edge://extensions/
 2. Ative o modo desenvolvedor nas extensões
-3. Faça o Upload da pasta descompactada das extensões
+3. Faça o Upload da pasta buttomRCO
 
 > **⚠️ Atenção:** Esta extensão depende da estrutura atual do site RCO. Mudanças no layout ou nos elementos podem tornar a extensão obsoleta.
 
