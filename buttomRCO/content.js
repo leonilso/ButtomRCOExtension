@@ -2,6 +2,33 @@
 // Esta extensão modifica o site do RCO e possibilita adcionar notas via CSV
 // Ela depende dos elementos do site do RCO, ou seja, pode ficar obsoleta quando os desenvolvedores modificarem a estrutura do site 
 
+function tratarCSV(arquivo){
+  const objetoNotas = {};
+  const leitor = new FileReader();
+
+  leitor.onload = function(e) {
+      const texto = e.target.result; 
+      const linhas = texto.trim().split("\n");
+
+      // Nessa versão tem dois casos, o primeiro é usando CSV gerado pelo Google Classroom (a verificação é feita pela quantidade de colunas), o segundo é por CSV próprio com o nome dos alunos e nota
+      if(linhas[0].split(",").length == 6){
+        for (let i = 1; i < linhas.length; i++) {
+          const [sobrenome, nome, email, nota, status, comentarios] = linhas[i].split(",");
+          objetoNotas[nome.trim() + " " + sobrenome.trim()] = parseFloat(nota.trim())/10;
+        }
+      } else {
+        for (let i = 1; i < linhas.length; i++) {
+          const [nome, nota] = linhas[i].split(";");
+          objetoNotas[nome.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")] = parseFloat(nota.trim());
+        }
+      }
+
+
+  };
+  leitor.readAsText(arquivo); 
+  return objetoNotas;
+}
+
 
 function criarBotaoInserirCSV(){
   // Seleciona a div dos botões
@@ -22,36 +49,17 @@ function criarBotaoInserirCSV(){
   });
 
   // Lê o arquivo CSV e converte em objeto NOME: NOTA
-  const objetoNotas = {};
+  const objetoNotas;
 
   inputArquivoCSV.addEventListener('change', (event) => {
     const arquivo = event.target.files[0];
     if (arquivo) {
       botaoEnviarCSV.innerText = arquivo.name;
-      const leitor = new FileReader();
-
-      leitor.onload = function(e) {
-          const texto = e.target.result; 
-          const linhas = texto.trim().split("\n");
-
-          // Nessa versão tem dois casos, o primeiro é usando CSV gerado pelo Google Classroom (a verificação é feita pela quantidade de colunas), o segundo é por CSV próprio com o nome dos alunos e nota
-          if(linhas[0].split(",").length == 6){
-            for (let i = 1; i < linhas.length; i++) {
-              const [sobrenome, nome, email, nota, status, comentarios] = linhas[i].split(",");
-              objetoNotas[nome.trim() + " " + sobrenome.trim()] = parseFloat(nota.trim())/10;
-            }
-          } else {
-            for (let i = 1; i < linhas.length; i++) {
-              const [nome, nota] = linhas[i].split(";");
-              objetoNotas[nome.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")] = parseFloat(nota.trim());
-            }
-          }
-
-
-      };
-      leitor.readAsText(arquivo); 
+      objetoNotas = tratarCSV(arquivo)
     }
   });
+
+
   // Adiciona o botão e o formulário no RCO
   divBotoes.appendChild(botaoEnviarCSV);
   divBotoes.appendChild(inputArquivoCSV);
@@ -79,6 +87,11 @@ function criarBotaoInserirCSV(){
       }, 500)
   })
 }
+
+
+
+
+// Execução da função
 criarBotaoInserirCSV()
 
 
