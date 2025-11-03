@@ -59,27 +59,26 @@ function criarBotaoInserirCSV(){
   // Adiciona o evento de input no botão avançar
   const botaoAvancar = divBotoes.children[0];
   botaoAvancar.addEventListener('click', (event) => {
-      setTimeout(()=>{
-          if(objetoNotas){
-              const roleGroupNotas = document.getElementsByTagName("tbody")[0];
-              const listaAlunos = roleGroupNotas.children;
-              for (let i = 0; i < listaAlunos.length; i++){
-                  if(listaAlunos[i].style.display != 'none'){
-                      let nomeAluno = listaAlunos[i].children[1].innerText.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                      let inputAluno = listaAlunos[i].children[2].children[0].children[0];
-                      if (objetoNotas.hasOwnProperty(nomeAluno)) {
-                        inputAluno.value = objetoNotas[nomeAluno];
-                        inputAluno.dispatchEvent(new Event("input"));
-                      }
-                  }
-              } 
-            botaoEnviarCSV.remove();
-            inputArquivoCSV.remove();
-          }
-      }, 500)
+    if(objetoNotas){
+        const roleGroupNotas = document.getElementsByTagName("tbody")[0];
+        const listaAlunos = roleGroupNotas.children;
+        for (let i = 0; i < listaAlunos.length; i++){
+            if(listaAlunos[i].style.display != 'none'){
+                let nomeAluno = listaAlunos[i].children[1].innerText.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                let inputAluno = listaAlunos[i].children[2].children[0].children[0];
+                if (objetoNotas.hasOwnProperty(nomeAluno)) {
+                  inputAluno.value = objetoNotas[nomeAluno];
+                  inputAluno.dispatchEvent(new Event("input"));
+                }
+            }
+        } 
+      botaoEnviarCSV.remove();
+      inputArquivoCSV.remove();
+    }
   })
 }
 criarBotaoInserirCSV()
+
 
 
 
